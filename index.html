@@ -63,22 +63,20 @@
       }
 
       .note {
+        user-select: none;
         position: absolute;
         left: 5%;
         top: 1vh;
         display: flex;
         flex-direction: column;
         color: rgb(0, 0, 0);
-        user-select: none;
       }
-
     </style>
-      <!-- "2rem" Dynamically scales the font size according to the web font size -->
-      <!-- "user-select" Makes it so that the user can/cannot highlight the text -->
+    <!-- "2rem" Dynamically scales the font size according to the web font size -->
+    <!-- "user-select" Makes it so that the user can/cannot highlight the text -->
     <div id="app">
       <div>
         <p class="note">Tap/Click around to move</p>
-
         <div id="textbox-container" style="display: none">
           <div id="textbox">
             <p id="dialogue" class="ui-text"></p>
@@ -93,3 +91,4 @@
     <script type="module" src="src/main.js"></script>
   </body>
 </html>
+
