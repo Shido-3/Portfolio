@@ -1,3 +1,5 @@
+import { defineConfig } from "vite";
+
 export default defineConfig({
     base: "./", // Makes it so that the server hosting can read the code
     build: {
