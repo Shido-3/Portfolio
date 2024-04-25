@@ -17,7 +17,7 @@ k.loadSprite("map", "./map.png");
 
 k.setBackground(k.Color.fromHex("#FFDAB9"));
 
-k.scene("main", async () => { // Player objects
+k.scene("main", async () => { // Objects
     const mapData = await (await fetch("./map.json")).json();
     const layers = mapData.layers;
   
@@ -35,8 +35,10 @@ k.scene("main", async () => { // Player objects
       {
         speed: 250,
         direction: "down",
-        isInDialogue: false,
+        isInDialogue: false, // Player isn't allowed to perform any actions until dialogue box is closed
       },
       "player",
     ]);
 });
+
+k.go("main");
