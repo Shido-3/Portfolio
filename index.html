@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/png" href="/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>2D-Portfolio</title>
   </head>
   <body>
     <style>
@@ -71,12 +71,33 @@
         flex-direction: column;
         color: rgb(0, 0, 0);
       }
+
+      #audioButton {
+        cursor: pointer; /* Indicate clickable behavior */
+        width: 3rem; 
+        height: 3rem;
+        position: absolute;
+        right: 5%;
+        top: 5vh;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.1s ease-in-out;
+      }
+
+      #audioButton:hover {
+        transform: scale(1.2);
+      }      
+
     </style>
     <!-- "2rem" Dynamically scales the font size according to the web font size -->
     <!-- "user-select" Makes it so that the user can/cannot highlight the text -->
     <div id="app">
       <div>
         <p class="note">Tap/Click around to move</p>
+        <audio autoplay loop id="audio">
+          <source src="/Tifa's Theme.mp3" type="audio/mpeg">
+        </audio>
+        <img id="audioButton" src="/mute.png" alt="Audio control button"/>
         <div id="textbox-container" style="display: none">
           <div id="textbox">
             <p id="dialogue" class="ui-text"></p>
@@ -92,3 +113,6 @@
   </body>
 </html>
 
+<!-- # Targets element with a unique ID - Style a specific element -->
+<!-- . Targets element with a specific class - Style multiple elements with the same class -->
+<!-- None Targets element by tag name - Apply styles to all elements of a specifc type -->

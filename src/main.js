@@ -206,3 +206,16 @@ k.scene("main", async () => { // Objects
   });
   
   k.go("main");
+
+const audio = document.getElementById("audio");
+const audioButton = document.getElementById("audioButton");
+
+audioButton.addEventListener("click", () => {
+  audio.muted = !audio.muted; // Inverts the audio.muted value
+
+  if (audio.muted) {
+    audioButton.src = "/unmute.png"; // Update image to the unmute icon
+  } else {
+    audioButton.src = "/mute.png"; // Update image to the mute icon
+  }
+});
