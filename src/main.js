@@ -215,9 +215,9 @@ audioButton.addEventListener("click", () => {
   audio.muted = !audio.muted; // Inverts the audio.muted value
 
   if (audio.muted) {
-    audioButton.src = "2D-Portfolio/public/mute.png"; // Update image to the unmute icon
+    audioButton.src = "public/mute.png"; // Update image to the unmute icon
   } else {
-    audioButton.src = "2D-Portfolio/public/unmute.png"; // Update image to the mute icon
+    audioButton.src = "public/unmute.png"; // Update image to the mute icon
   }
 });
 
@@ -234,9 +234,9 @@ function controlAudio(event) {
   
 
     if (audio.muted) {
-      audioButton.src = "2D-Portfolio/public/mute.png"; // Update image to unmute icon
+      audioButton.src = "public/mute.png"; // Update image to unmute icon
     } else {
-      audioButton.src = "2D-Portfolio/public/unmute.png"; // Update image to mute icon
+      audioButton.src = "public/unmute.png"; // Update image to mute icon
     }
   }
 };
