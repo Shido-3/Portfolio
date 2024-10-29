@@ -31,16 +31,13 @@ export function displayDialogue(text, onDisplayEnd) {
     clearInterval(intervalRef);
     closeBtn.removeEventListener("click", onCloseBtnClick);
 
-    document.activeElement.blur();
-
     k.focus(); // Refocus on the canvas to regain keyboard control
   }
 
   closeBtn.addEventListener("click", onCloseBtnClick);
 
   addEventListener("keypress", (key) => {
-    if (key.code === "Enter") {
-      key.preventDefault(); // Prevents link activation on "Enter" key
+    if (key.code === "Escape") {
       closeBtn.click();
     }
   });
