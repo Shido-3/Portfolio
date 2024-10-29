@@ -38,6 +38,7 @@ export function displayDialogue(text, onDisplayEnd) {
 
   addEventListener("keypress", (key) => {
     if (key.code === "Enter") {
+      key.preventDefault(); // Prevents link activation on "Enter" key
       closeBtn.click();
     }
   });
