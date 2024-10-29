@@ -25,7 +25,6 @@ export function displayDialogue(text, onDisplayEnd) {
   const closeBtn = document.getElementById("close");
 
   function onCloseBtnClick() {
-    player.isInDialogue = false; // Set the player's isInDialogue flag to false
     onDisplayEnd(); // Allows the player to perform actions again
     dialogueUI.style.display = "none";
     dialogue.innerHTML = "";
