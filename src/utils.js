@@ -31,15 +31,15 @@ export function displayDialogue(text, onDisplayEnd) {
     clearInterval(intervalRef);
     closeBtn.removeEventListener("click", onCloseBtnClick);
 
-    k.focus(); // Refocus on the canvas to regain keyboard control
+    // k.focus(); // Refocus on the canvas to regain keyboard control
   }
 
   closeBtn.addEventListener("click", onCloseBtnClick);
 
-  addEventListener("keydown", (key) => {
-    if (key.code === "Escape") {
+  addEventListener("keypress", (key) => {
+    if (key.code === "Enter") {
       closeBtn.click();
-      k.focus(); // Refocus on the canvas to regain keyboard control
+      // k.focus(); // Refocus on the canvas to regain keyboard control
     }
   });
 }
