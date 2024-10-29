@@ -39,6 +39,7 @@ export function displayDialogue(text, onDisplayEnd) {
   addEventListener("keydown", (key) => {
     if (key.code === "Escape") {
       closeBtn.click();
+      k.focus(); // Refocus on the canvas to regain keyboard control
     }
   });
 }
