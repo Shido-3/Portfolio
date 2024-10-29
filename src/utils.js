@@ -30,6 +30,8 @@ export function displayDialogue(text, onDisplayEnd) {
     dialogue.innerHTML = "";
     clearInterval(intervalRef);
     closeBtn.removeEventListener("click", onCloseBtnClick);
+
+    k.focus(); // Refocus on the canvas to regain keyboard control
   }
 
   closeBtn.addEventListener("click", onCloseBtnClick);
