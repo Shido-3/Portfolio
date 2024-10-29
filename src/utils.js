@@ -36,8 +36,8 @@ export function displayDialogue(text, onDisplayEnd) {
 
   closeBtn.addEventListener("click", onCloseBtnClick);
 
-  addEventListener("keypress", (key) => {
-    if (key.code === "Enter") {
+  addEventListener("keydown", (key) => {
+    if (key.code === "Escape") {
       closeBtn.click();
     }
   });
