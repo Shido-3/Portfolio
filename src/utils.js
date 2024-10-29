@@ -37,7 +37,7 @@ export function displayDialogue(text, onDisplayEnd) {
   closeBtn.addEventListener("click", onCloseBtnClick);
 
   addEventListener("keypress", (key) => {
-    if (key.code === "Escape") {
+    if (key.code === "q") {
       closeBtn.click();
     }
   });
