@@ -157,7 +157,6 @@ k.scene("main", async () => { // Objects
     stopAnims();
   });
   k.onKeyDown((key) => {
-    if (player.isInDialogue) return; // Exit the function if the player is in dialogue
 
     const keyMap = [
       k.isKeyDown("right"),
