@@ -19,6 +19,17 @@ k.loadSprite("map", "./map.png");
 
 k.setBackground(k.Color.fromHex("#311047"));
 
+const canvas = document.querySelector('canvas');
+
+// Auto-refocus canvas when window regains focus
+window.addEventListener('focus', () => {
+    setTimeout(() => {
+        if (canvas) {
+            canvas.focus();
+        }
+    }, 100);
+});
+
 k.scene("main", async () => {
   const mapData = await (await fetch("./map.json")).json();
   const layers = mapData.layers;
