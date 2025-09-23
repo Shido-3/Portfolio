@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2D-Portfolio</title>
+    <title>Portfolio</title>
   </head>
   <body>
     <style>
@@ -42,6 +42,7 @@
         align-items: flex-start;
         word-spacing: 0.2rem;
         filter: drop-shadow(0 0 0.75rem rgb(112, 112, 112));
+        /* overflow: auto; */
       }
 
       .ui-text {
@@ -63,42 +64,52 @@
       }
 
       .note {
-        user-select: none;
         position: absolute;
         left: 5%;
         top: 1vh;
         display: flex;
         flex-direction: column;
-        color: rgb(255, 255, 255);
+        color: rgb(238, 238, 238);
       }
 
       #audioButton {
         cursor: pointer; /* Indicate clickable behavior */
-        width: 3rem; 
-        height: 3rem;
+        width: 5rem; 
+        height: 5rem;
         position: absolute;
         right: 5%;
         top: 5vh;
         display: flex;
         flex-direction: column;
+        transform: scale(1);
         transition: transform 0.1s ease-in-out;
+        background: none;
+        background-color: transparent;
+        border: none;
+        padding: 0;
       }
 
       #audioButton:hover {
         transform: scale(1.2);
       }      
 
+
     </style>
-    <!-- "2rem" Dynamically scales the font size according to the web font size -->
-    <!-- "user-select" Makes it so that the user can/cannot highlight the text -->
     <div id="app">
       <div>
         <p class="note">Tap/Click around to move</p>
-        <!-- Use the arrows keys to move <br> Press enter to close dialogue box -->
-        <audio loop muted id="audio">
+
+        <!-- Audio element -->
+        <audio id="audio" loop paused>
           <source src="/Tifa's Theme.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
         </audio>
-        <img id="audioButton" src="/mute.png" alt="Audio control button"/>
+
+        <!-- Audio toggle button -->
+        <button id="audioButton" aria-label="Toggle Audio">
+          <img src="/mute.png" alt="Mute/Unmute">
+        </button>
+
         <div id="textbox-container" style="display: none">
           <div id="textbox">
             <p id="dialogue" class="ui-text"></p>
@@ -108,12 +119,8 @@
           </div>
         </div>
       </div>
-      <canvas id="game"></canvas>
+      <canvas id="game" tabindex="0"></canvas>
     </div>
     <script type="module" src="src/main.js"></script>
   </body>
 </html>
-
-<!-- # Targets element with a unique ID - Style a specific element -->
-<!-- . Targets element with a specific class - Style multiple elements with the same class -->
-<!-- None Targets element by tag name - Apply styles to all elements of a specifc type -->

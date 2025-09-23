@@ -1,9 +1,9 @@
-// Kaboom is a javascript library for quickly creating 2D games
 import kaboom from "kaboom";
+import { scaleFactor } from "./constants";
 
 export const k = kaboom({
   global: false,
-  touchToMouse: true,  // Converts touch inputs to mouse inputs
+  touchToMouse: true,
   canvas: document.getElementById("game"),
   debug: false, // set to false once ready for production
 });

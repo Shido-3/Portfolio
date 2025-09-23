@@ -17,27 +17,27 @@ k.loadSprite("spritesheet", "./spritesheet.png", {
 
 k.loadSprite("map", "./map.png");
 
-k.setBackground(k.Color.fromHex("#311047")); // FFDAB9 // #2A0134
+k.setBackground(k.Color.fromHex("#311047"));
 
-k.scene("main", async () => { // Objects
+k.scene("main", async () => {
   const mapData = await (await fetch("./map.json")).json();
   const layers = mapData.layers;
 
-  const map = k.add([k.sprite("map"), k.pos(0), k.scale(scaleFactor)]); // Scales the pixel up, pixel art is really smol
-  
+  const map = k.add([k.sprite("map"), k.pos(0), k.scale(scaleFactor)]);
+
   const player = k.make([
     k.sprite("spritesheet", { anim: "idle-down" }),
     k.area({
       shape: new k.Rect(k.vec2(0, 3), 10, 10),
     }),
     k.body(),
-    k.anchor("center"), // By default the x,y coordinates are set to the top left of the Sprite, this makes it so that the x,y coordinates are in the center of the sprite
+    k.anchor("center"),
     k.pos(),
     k.scale(scaleFactor),
     {
       speed: 250,
       direction: "down",
-      isInDialogue: false, // Player isn't allowed to perform any actions until dialogue box is closed
+      isInDialogue: false,
     },
     "player",
   ]);
@@ -89,8 +89,15 @@ k.scene("main", async () => { // Objects
   });
 
   k.onUpdate(() => {
-    k.camPos(player.worldPos().x, player.worldPos().y - 100);
+    const cam = k.camPos();
+    const target = player.worldPos();
+    // Lerp (linear interpolation) for smooth movement
+    k.camPos(
+      cam.x + (target.x - cam.x) * 0.1,
+      cam.y + (target.y - cam.y) * 0.1
+    );
   });
+
 
   k.onMouseDown((mouseBtn) => {
     if (mouseBtn !== "left" || player.isInDialogue) return;
@@ -156,88 +163,81 @@ k.scene("main", async () => { // Objects
   k.onKeyRelease(() => {
     stopAnims();
   });
+
   k.onKeyDown((key) => {
-
-    const keyMap = [
-      k.isKeyDown("right"),
-      k.isKeyDown("left"),
-      k.isKeyDown("up"),
-      k.isKeyDown("down"),
-    ];
-
-    let nbOfKeyPressed = 0;
-    for (const key of keyMap) {
-      if (key) {
-        nbOfKeyPressed++;
-      }
-    }
-
-    if (nbOfKeyPressed > 1) return;
-
     if (player.isInDialogue) return;
-    if (keyMap[0]) {
-      player.flipX = false;
+    
+    const keyMap = {
+      right: k.isKeyDown("right"),
+      left: k.isKeyDown("left"),
+      up: k.isKeyDown("up"),
+      down: k.isKeyDown("down"),
+    };
+
+    // Calculate movement vector
+    let moveX = 0;
+    let moveY = 0;
+    
+    if (keyMap.right) moveX += 1;
+    if (keyMap.left) moveX -= 1;
+    if (keyMap.up) moveY -= 1;
+    if (keyMap.down) moveY += 1;
+    
+    // No movement if no keys are pressed
+    if (moveX === 0 && moveY === 0) return;
+    
+    // Normalize diagonal movement to maintain consistent speed
+    const isDiagonal = moveX !== 0 && moveY !== 0;
+    const normalizedSpeed = isDiagonal ? player.speed * 0.407 : player.speed;
+    
+    // Apply movement
+    player.move(moveX * normalizedSpeed, moveY * normalizedSpeed);
+    
+    // Handle animations and direction based on priority
+    // Horizontal movement takes precedence for sprite direction
+    if (moveX !== 0) {
+      player.flipX = moveX < 0; // true for left, false for right
+      player.direction = moveX > 0 ? "right" : "left";
       if (player.curAnim() !== "walk-side") player.play("walk-side");
-      player.direction = "right";
-      player.move(player.speed, 0);
-      return;
-    }
-
-    if (keyMap[1]) {
-      player.flipX = true;
-      if (player.curAnim() !== "walk-side") player.play("walk-side");
-      player.direction = "left";
-      player.move(-player.speed, 0);
-      return;
-    }
-
-    if (keyMap[2]) {
-      if (player.curAnim() !== "walk-up") player.play("walk-up");
-      player.direction = "up";
-      player.move(0, -player.speed);
-      return;
-    }
-
-    if (keyMap[3]) {
-      if (player.curAnim() !== "walk-down") player.play("walk-down");
-      player.direction = "down";
-      player.move(0, player.speed);
+    } 
+    // Vertical movement only if no horizontal movement
+    else if (moveY !== 0) {
+      player.direction = moveY < 0 ? "up" : "down";
+      const animName = moveY < 0 ? "walk-up" : "walk-down";
+      if (player.curAnim() !== animName) player.play(animName);
     }
   });
 });
-  
+
 k.go("main");
 
+
+// --- Audio controls ---
 const audio = document.getElementById("audio");
 const audioButton = document.getElementById("audioButton");
+const audioIcon = audioButton.querySelector('img');
 
-audioButton.addEventListener("click", () => {
-  audio.play();
-  audio.muted = !audio.muted; // Inverts the audio.muted value
 
-  if (audio.muted) {
-    audioButton.src = "/2D-Portfolio/mute.png"; // Update image to the unmute icon
+function toggleAudio() {
+  if (audio.paused) {
+    audio.play();
   } else {
-    audioButton.src = "/2D-Portfolio/unmute.png"; // Update image to the mute icon
+    audio.pause()
   }
-});
+  // audio.muted = !audio.muted;
+  audioIcon.src = audio.paused ? "./mute.png" : "./unmute.png";
+  audioButton.style.transform = "scale(1.2)";
+  setTimeout(() => {
+    audioButton.style.transform = "";
+  }, 200);
 
-document.addEventListener("keydown", controlAudio);
-
-function controlAudio(event) {
-  if (event.key === "m") {
-    audio.play();  
-    audio.muted = !audio.muted; // Inverts the audio.muted value
-    audioButton.style.transform = "scale(1.2)";
-    setTimeout(() => {
-      audioButton.style.transform = "scale(1)";
-    }, 200); // Replicates the hover effect to a certain degree
-  
-
-    if (audio.muted) {
-      audioButton.src = "/2D-Portfolio/mute.png"; // Update image to unmute icon
-    } else {
-      audioButton.src = "/2D-Portfolio/unmute.png"; // Update image to mute icon
-    }
+  // Refocus the game canvas
+  const canvas = document.getElementById('game');
+  if (canvas) {
+    canvas.focus();
   }
-};
+
+}
+
+audioButton.addEventListener("click", toggleAudio);
+document.addEventListener("keydown", (e) => { if (e.key === "m") toggleAudio(); });
