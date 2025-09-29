@@ -6,7 +6,7 @@ export const dialogueData = {
     "sofa-table": `This is my sofa. When I'm not working, you'll usually find me here - playing games, reading, learning Japanese, going for walks, hitting the gym, or just hanging out with friends. Right now, I'm deep into Final Fantasy X!`,
     tv: `This is my TV. I love kicking back with movies, YouTube, and anime. I just wrapped up Demon Slayer - Set Your Heart Ablaze!`,
     bed: `This is my bed. I love my bed. I miss my bed.`,
-    resume: `This is my desk, where you'll find my <a href="https://github.com/Shido-3/Resume/blob/main/Resume.pdf" target='_blank' rel='noopener noreferrer'>resume</a>. If you think I'd be a good fit for your team, feel free to reach out: <a href="mailto:benh.050303@gmail.com">benh.050303@gmail.com</a>!`,
+    resume: `This is my desk, where you'll find my <a href="https://github.com/Shido-3/Resume/blob/main/MK_1___Final_Copy.pdf" target='_blank' rel='noopener noreferrer'>resume</a>. If you think I'd be a good fit for your team, feel free to reach out: <a href="mailto:benh.050303@gmail.com">benh.050303@gmail.com</a>!`,
     projects: `This portfolio was built using Kaboom.js, a JavaScript library for creating games. The text you're reading here is rendered with HTML and styled with CSS.`,
     library: `My bookshelf, my sietch of knowledge. I'm on book four of Dune, and my spice addiction is no longer a joke. Fear is the mind-killer - but running out of reading material might be worse.`,
     exit: `You can exit anytime by closing this tab - no boss fight required. Thanks for visiting! Hopefully you got to know me a little better. Wishing you a great rest of your day.`,
